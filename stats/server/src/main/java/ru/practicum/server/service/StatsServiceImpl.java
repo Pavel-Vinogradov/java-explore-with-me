@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.dto.RequestStatsDto;
 import ru.practicum.dto.ResponseStatsDto;
+import ru.practicum.server.dto.StatsRequestDto;
 import ru.practicum.server.exception.ValidTimeException;
 import ru.practicum.server.model.Mapper;
 import ru.practicum.server.model.ResponseStat;
@@ -26,15 +27,15 @@ public class StatsServiceImpl implements StatsService {
     }
 
     @Override
-    public List<ResponseStatsDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, boolean unique) {
-        checkValidTime(start, end);
+    public List<ResponseStatsDto> getStats(StatsRequestDto statsRequestDto) {
+        checkValidTime(statsRequestDto.getStart(), statsRequestDto.getEnd());
 
         List<ResponseStat> stats;
 
-        if (unique) {
-            stats = statsRepository.getStatByUrisAndTimeIsUnique(uris, start, end);
+        if (statsRequestDto.isUnique()) {
+            stats = statsRepository.getStatByUrisAndTimeIsUnique(statsRequestDto.getUris(), statsRequestDto.getStart(), statsRequestDto.getEnd(),statsRequestDto.getLimit());
         } else {
-            stats = statsRepository.getStatByUrisAndTime(uris, start, end);
+            stats = statsRepository.getStatByUrisAndTime(statsRequestDto.getUris(), statsRequestDto.getStart(), statsRequestDto.getEnd(),statsRequestDto.getLimit());
         }
 
         return stats.stream().map(Mapper::toResponseStatsDto).collect(Collectors.toList());

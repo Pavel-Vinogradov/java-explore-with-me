@@ -16,7 +16,7 @@ public interface StatsRepository extends JpaRepository<Stat, Long> {
             "AND (s.uri IN (?1) OR (?1) is NULL) " +
             "GROUP BY s.app, s.uri " +
             "ORDER BY COUNT(DISTINCT s.ip) DESC")
-    List<ResponseStat> getStatByUrisAndTimeIsUnique(List<String> uri, LocalDateTime start, LocalDateTime end);
+    List<ResponseStat> getStatByUrisAndTimeIsUnique(List<String> uri, LocalDateTime start, LocalDateTime end, int limit);
 
     @Query("SELECT new ru.practicum.server.model.ResponseStat(s.app, s.uri, COUNT(s.ip)) " +
             "FROM Stat as s " +
@@ -24,5 +24,6 @@ public interface StatsRepository extends JpaRepository<Stat, Long> {
             "AND (s.uri IN (?1) OR (?1) is NULL) " +
             "GROUP BY s.app, s.uri " +
             "ORDER BY COUNT(s.ip) DESC")
-    List<ResponseStat> getStatByUrisAndTime(List<String> uri, LocalDateTime start, LocalDateTime end);
+    List<ResponseStat> getStatByUrisAndTime(List<String> uri, LocalDateTime start, LocalDateTime end, int limit);
+
 }

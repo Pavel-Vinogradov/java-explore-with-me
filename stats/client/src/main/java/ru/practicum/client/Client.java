@@ -3,7 +3,7 @@ package ru.practicum.client;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.dto.RequestStatsDto;
 import ru.practicum.dto.ResponseStatsDto;
@@ -11,7 +11,7 @@ import ru.practicum.dto.ResponseStatsDto;
 import java.util.List;
 import java.util.Map;
 
-@Component
+@Service
 public class Client extends BaseClient {
 
     public Client(@Value("${explore-with-me-server.url}") String serverUrl, RestTemplateBuilder builder) {
