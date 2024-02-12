@@ -1,36 +1,37 @@
 package ru.practicum.ewm.request.model;
 
 import lombok.*;
-import ru.practicum.ewm.enums.RequestStatus;
 import ru.practicum.ewm.event.model.Event;
 import ru.practicum.ewm.user.model.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Entity(name = "requests")
+@Table(name = "requests")
 public class Request {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
-    @Column(name = "create_date")
+    @Column(nullable = false)
     private LocalDateTime created;
 
     @ManyToOne
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "event", nullable = false)
     private Event event;
 
     @ManyToOne
-    @JoinColumn(name = "requester_id")
+    @JoinColumn(name = "requester", nullable = false)
     private User requester;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    @Column(name = "status")
     private RequestStatus status;
 }

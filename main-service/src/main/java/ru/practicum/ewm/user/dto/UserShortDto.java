@@ -1,17 +1,13 @@
 package ru.practicum.ewm.user.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.validation.constraints.NotNull;
-
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserShortDto {
-    @NotNull
-    private Long id;
-    @NotNull
-    public String name;
+    private long id;
+    private String name;
 }

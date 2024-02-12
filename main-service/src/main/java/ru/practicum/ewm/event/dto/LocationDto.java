@@ -1,22 +1,22 @@
 package ru.practicum.ewm.event.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
-@Data
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class LocationDto {
-    @NotNull
+
     @Min(-90)
     @Max(90)
-    private Float lat;
-    @NotNull
+    private float lat;
+
     @Min(-180)
     @Max(180)
-    private Float lon;
+    private float lon;
 }
-

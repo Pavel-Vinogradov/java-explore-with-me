@@ -1,16 +1,20 @@
 package ru.practicum.ewm.category.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-@Data
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class CategoryDto {
-    private Long id;
+
+    private int id;
+
     @NotBlank
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 50, message = "Длина имени должна быть от 1 до 50 символов.")
     private String name;
 }

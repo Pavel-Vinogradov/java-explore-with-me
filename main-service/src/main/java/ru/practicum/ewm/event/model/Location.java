@@ -1,23 +1,23 @@
 package ru.practicum.ewm.event.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Entity
 @Getter
 @Setter
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-@Entity(name = "locations")
+@AllArgsConstructor
+@Table(name = "locations")
 public class Location {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "lat")
-    private Float lat;
-    @Column(name = "lon")
-    private Float lon;
+    private long id;
+
+    private float lat;
+
+    private float lon;
 }
