@@ -49,6 +49,7 @@ public class EventService {
 
     @Value("${server.application.name:ewm-service}")
     private String applicationName;
+
     public ResponseEntity<Object> createEvent(long userId, NewEventDto newEventDto) {
         User user = userService.checkExistsUser(userId);
         Category category = categoryService.checkExistCategory(newEventDto.getCategory());
