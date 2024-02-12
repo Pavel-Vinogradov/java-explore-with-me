@@ -4,15 +4,16 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import ru.practicum.ewm.StatClient;
+import ru.practicum.ewm.RequestStatsDto;
+import ru.practicum.ewm.ResponseStatsDto;
+import ru.practicum.ewm.StatsClient;
 import ru.practicum.ewm.category.model.Category;
 import ru.practicum.ewm.category.service.CategoryService;
-import ru.practicum.ewm.dto.HitDto;
-import ru.practicum.ewm.dto.StatsDto;
 import ru.practicum.ewm.event.dto.*;
 import ru.practicum.ewm.event.mapper.EventMapper;
 import ru.practicum.ewm.event.mapper.LocationMapper;
@@ -44,8 +45,10 @@ public class EventService {
     private final UserService userService;
     private final CategoryService categoryService;
     private final LocationService locationService;
-    private final StatClient statClient;
+    private final StatsClient statClient;
 
+    @Value("${server.application.name:ewm-service}")
+    private String applicationName;
     public ResponseEntity<Object> createEvent(long userId, NewEventDto newEventDto) {
         User user = userService.checkExistsUser(userId);
         Category category = categoryService.checkExistCategory(newEventDto.getCategory());
@@ -99,7 +102,7 @@ public class EventService {
     }
 
     public ResponseEntity<Object> updateEventUser(long userId, long eventId,
-                                              UpdateEventUserRequest updateEventUserRequest) {
+                                                  UpdateEventUserRequest updateEventUserRequest) {
         userService.checkExistsUser(userId);
 
         Event event = checkExistsEvent(eventId);
@@ -169,7 +172,7 @@ public class EventService {
     }
 
     public ResponseEntity<Object> adminSearchEvents(List<Long> users, List<StateEvent> states, List<Long> idsCategory,
-                   String rangeStart, String rangeEnd, int from, int size) {
+                                                    String rangeStart, String rangeEnd, int from, int size) {
 
         PageRequest page = Page.createPageRequest(from, size);
         LocalDateTime start = null;
@@ -185,8 +188,8 @@ public class EventService {
 
         List<EventFullDto> events =
                 eventStorage.adminSearchEvents(users, states, idsCategory, start, end, page).stream()
-                             .map(EventMapper::toEventFullDto)
-                             .collect(Collectors.toList());
+                        .map(EventMapper::toEventFullDto)
+                        .collect(Collectors.toList());
 
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
@@ -352,23 +355,23 @@ public class EventService {
     }
 
     private void createHit(HttpServletRequest request) {
-        statClient.createStat(HitDto.builder()
-                .app("ewm-main-service")
+        statClient.postStat(RequestStatsDto.builder()
+                .app(applicationName)
                 .uri(request.getRequestURI())
                 .ip(request.getRemoteAddr())
-                .timestamp(FORMATTER.format(LocalDateTime.now()))
+                .timestamp(LocalDateTime.now())
                 .build());
     }
 
     private long getView(long eventId) {
         List<String> uris = List.of(String.format("/events/%s", eventId));
 
-        ResponseEntity<Object> objectStatsDto = statClient.getStat(LocalDateTime.now().minusYears(1).format(FORMATTER),
-                LocalDateTime.now().format(FORMATTER), uris, true);
+        ResponseEntity<Object> objectStatsDto = statClient.getStats(LocalDateTime.now().minusYears(1),
+                LocalDateTime.now(), uris, true);
 
         ObjectMapper mapper = new ObjectMapper();
-        JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, StatsDto.class);
-        List<StatsDto> statsDtos = mapper.convertValue(objectStatsDto.getBody(), type);
+        JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, ResponseStatsDto.class);
+        List<ResponseStatsDto> statsDtos = mapper.convertValue(objectStatsDto.getBody(), type);
 
         return !statsDtos.isEmpty() ? statsDtos.get(0).getHits() : 0;
     }
