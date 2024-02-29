@@ -1,10 +1,11 @@
-package ru.practicum.ewm.event.dto;
+package ru.practicum.ewm.compilation.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
@@ -12,10 +13,10 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UpdateCompilationDto {
-    private Long id;
-    private Set<Long> events;
+public class NewCompilationDto {
     private Boolean pinned;
-    @Size(max = 50)
+    @NotBlank
+    @Size(min = 1, max = 50)
     private String title;
+    private Set<Long> events;
 }

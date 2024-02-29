@@ -1,7 +1,7 @@
 package ru.practicum.ewm.request.mapper;
 
 import ru.practicum.ewm.request.model.Request;
-import ru.practicum.ewm.event.dto.ParticipationRequestDto;
+import ru.practicum.ewm.request.dto.ParticipationRequestDto;
 
 public class RequestMapper {
     public static ParticipationRequestDto toParticipationRequestDto(Request request) {
@@ -14,13 +14,4 @@ public class RequestMapper {
                 .build();
     }
 
-    public Request toRequest(ParticipationRequestDto participationRequestDto) {
-        return Request.builder()
-                .id(participationRequestDto.getId())
-                .event(null)
-                .created(participationRequestDto.getCreated())
-                .requester(null)
-                .status(participationRequestDto.getStatus())
-                .build();
-    }
 }

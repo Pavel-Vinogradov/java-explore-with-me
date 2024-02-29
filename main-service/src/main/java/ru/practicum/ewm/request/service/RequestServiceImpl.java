@@ -8,7 +8,7 @@ import ru.practicum.ewm.exception.ValidationException;
 import ru.practicum.ewm.event.model.Event;
 import ru.practicum.ewm.request.model.Request;
 import ru.practicum.ewm.user.model.User;
-import ru.practicum.ewm.event.dto.ParticipationRequestDto;
+import ru.practicum.ewm.request.dto.ParticipationRequestDto;
 import ru.practicum.ewm.enums.EventStatus;
 import ru.practicum.ewm.enums.RequestStatus;
 import ru.practicum.ewm.request.mapper.RequestMapper;

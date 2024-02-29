@@ -6,6 +6,7 @@ import ru.practicum.ewm.event.model.ParamsSearchForAdmin;
 import ru.practicum.ewm.event.model.SearchParamsForEvents;
 import ru.practicum.ewm.request.dto.EventRequestStatusUpdateRequest;
 import ru.practicum.ewm.request.dto.EventRequestStatusUpdateResult;
+import ru.practicum.ewm.request.dto.ParticipationRequestDto;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

@@ -34,6 +34,7 @@ import ru.practicum.ewm.exception.ValidationException;
 import ru.practicum.ewm.paginator.Pagination;
 import ru.practicum.ewm.request.dto.EventRequestStatusUpdateRequest;
 import ru.practicum.ewm.request.dto.EventRequestStatusUpdateResult;
+import ru.practicum.ewm.request.dto.ParticipationRequestDto;
 import ru.practicum.ewm.request.mapper.RequestMapper;
 import ru.practicum.ewm.request.model.Request;
 import ru.practicum.ewm.request.repository.RequestRepository;

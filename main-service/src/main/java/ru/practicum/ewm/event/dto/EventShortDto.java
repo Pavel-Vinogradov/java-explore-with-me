@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import ru.practicum.ewm.category.dto.CategoryDto;
 import ru.practicum.ewm.user.dto.UserShortDto;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Data
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 @Builder
 public class EventShortDto {
     private Long id;
+    @NotBlank
     private String annotation;
     private CategoryDto category;
     private Integer confirmedRequests;
