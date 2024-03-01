@@ -40,10 +40,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto patchCategory(CategoryDto categoryDto) {
         Category categoryUpdate = CategoryMapper.toCategory(categoryDto);
-        Optional<Category> categoryOldOpt = categoryRepository.findById(categoryDto.getCatId());
+        Optional<Category> categoryOldOpt = categoryRepository.findById(categoryDto.getId());
 
         if (categoryOldOpt.isEmpty()) {
-            throw new NotFoundException("Category with id=" + categoryDto.getCatId() + "was not found");
+            throw new NotFoundException("Category with id=" + categoryDto.getId() + "was not found");
         }
 
         Category categoryOld = categoryOldOpt.get();

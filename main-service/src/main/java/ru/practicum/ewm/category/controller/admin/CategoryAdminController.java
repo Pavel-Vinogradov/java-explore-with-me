@@ -34,7 +34,7 @@ public class CategoryAdminController {
     @PatchMapping("/{catId}")
     @ResponseStatus(HttpStatus.OK)
     public CategoryDto patchCategory(@PathVariable Long catId, @RequestBody @Valid CategoryDto categoryDto) {
-        categoryDto.setCatId(catId);
+        categoryDto.setId(catId);
         return categoryService.patchCategory(categoryDto);
     }
 }
