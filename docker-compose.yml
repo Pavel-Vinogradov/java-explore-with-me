@@ -1,7 +1,7 @@
 version: '3.1'
 services:
   stats-server:
-    build: stats/server
+    build: stats-service/server
     image: java-explore-with-me-stats-server
     container_name: stats-server
     ports:
@@ -24,7 +24,7 @@ services:
       - POSTGRES_DB=statistics
 
   ewm-service:
-    build: service
+    build: main-service
     image: java-explore-with-me-service
     container_name: service
     ports:
@@ -32,7 +32,7 @@ services:
     depends_on:
       - ewm-db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://main-db:6060/service
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5432/service
       - SPRING_DATASOURCE_USERNAME=service
       - SPRING_DATASOURCE_PASSWORD=service
 
@@ -40,7 +40,7 @@ services:
     image: postgres:14-alpine
     container_name: ewm-db
     ports:
-      - "6060:6060"
+      - "6060:5432"
     environment:
       - POSTGRES_PASSWORD=service
       - POSTGRES_USER=service
