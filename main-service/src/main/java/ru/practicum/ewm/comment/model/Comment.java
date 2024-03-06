@@ -2,6 +2,7 @@ package ru.practicum.ewm.comment.model;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import ru.practicum.ewm.event.model.Event;
 import ru.practicum.ewm.user.model.User;
 
@@ -33,6 +34,10 @@ public class Comment {
     @Column(name = "created")
     @CreationTimestamp
     private LocalDateTime created;
+
+    @Column(name = "updated")
+    @UpdateTimestamp
+    private LocalDateTime updated;
 
     @Column(name = "is_edited")
     private Boolean isEdited;

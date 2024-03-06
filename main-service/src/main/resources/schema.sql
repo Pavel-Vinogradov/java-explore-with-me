@@ -75,5 +75,6 @@ CREATE TABLE IF NOT EXISTS comments
     event_id        BIGINT        NOT NULL REFERENCES events (id),
     author_id       BIGINT        NOT NULL REFERENCES users (id),
     created         TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    updated         TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     is_edited       BOOLEAN NOT NULL
     );

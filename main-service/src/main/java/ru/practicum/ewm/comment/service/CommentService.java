@@ -1,14 +1,15 @@
 package ru.practicum.ewm.comment.service;
 
 import ru.practicum.ewm.comment.dto.CommentDto;
-import ru.practicum.ewm.comment.dto.CreateOrUpdateCommentDto;
+import ru.practicum.ewm.comment.dto.NewCommentDto;
+import ru.practicum.ewm.comment.dto.UpdateCommentDto;
 
 import java.util.List;
 
 public interface CommentService {
-    CommentDto createComment(Long userId, Long eventId, CreateOrUpdateCommentDto commentDto);
+    CommentDto createComment(Long userId, NewCommentDto commentDto);
 
-    CommentDto patchByUser(Long userId, Long commentId, CreateOrUpdateCommentDto updateCommentDto);
+    CommentDto patchByUser(Long userId, UpdateCommentDto updateCommentDto);
 
     List<CommentDto> getUserComments(Long userId);
 
@@ -19,4 +20,9 @@ public interface CommentService {
     void deleteCommentByAdmin(Long commentId);
 
     List<CommentDto> search(String text, Integer from, Integer size);
+
+    CommentDto getCommentUser(Long userId, Long commentId);
+
+    CommentDto getComment(Long commentId);
+
 }

@@ -1,9 +1,10 @@
 {
   "info": {
-    "_postman_id": "e0094b6d-9306-4632-a9ba-7e26b366c14f",
+    "_postman_id": "011450df-e8ad-4dd7-a916-207b48d33d82",
     "name": "feature",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "28916804"
+    "_exporter_id": "14486266",
+    "_collection_link": "https://dark-capsule-492730.postman.co/workspace/My-Workspace~722383e8-94d0-42a3-8325-a7b79baba824/collection/14486266-011450df-e8ad-4dd7-a916-207b48d33d82?action=share&source=collection_link&creator=14486266"
   },
   "item": [
     {
@@ -551,8 +552,8 @@
               "script": {
                 "exec": [
                   "const target = pm.response.json();\r",
-                  "pm.test(\"Комментарии должны содержать поля: 'id', 'text', 'authorId','eventId', 'created', 'isEdited'\", function () {\r",
-                  "    pm.expect(target).to.have.all.keys('id', 'text', 'authorId','eventId', 'created', 'isEdited');\r",
+                  "pm.test(\"Комментарии должны содержать поля: 'id', 'text', 'author','eventId','updated', 'created', 'isEdited'\", function () {\r",
+                  "    pm.expect(target).to.have.all.keys('id', 'text', 'author','eventId', 'updated','created', 'isEdited');\r",
                   "});"
                 ],
                 "type": "text/javascript"
@@ -760,8 +761,8 @@
               "script": {
                 "exec": [
                   "const target = pm.response.json();\r",
-                  "pm.test(\"Комментарии должны содержать поля: 'id', 'text', 'authorId','eventId', 'created', 'isEdited'\", function () {\r",
-                  "    pm.expect(target).to.have.all.keys('id', 'text', 'authorId','eventId', 'created', 'isEdited');\r",
+                  "pm.test(\"Комментарии должны содержать поля: 'id', 'text', 'author','eventId','updated', 'created', 'isEdited'\", function () {\r",
+                  "    pm.expect(target).to.have.all.keys('id', 'text', 'author','eventId', 'updated','created', 'isEdited');\r",
                   "});\r",
                   "\r",
                   "pm.test(\"Проверка значения поля isEdited\", function () {\r",
@@ -917,8 +918,8 @@
                   "    pm.response.to.be.json;\r",
                   "});\r",
                   "const target = pm.response.json()[0];\r",
-                  "pm.test(\"Комментарии должны содержать поля: 'id', 'text', 'authorId','eventId', 'created', 'isEdited'\", function () {\r",
-                  "    pm.expect(target).to.have.all.keys('id', 'text', 'authorId','eventId', 'created', 'isEdited');\r",
+                  "pm.test(\"Комментарии должны содержать поля: 'id', 'text', 'author','eventId','updated', 'created', 'isEdited'\", function () {\r",
+                  "    pm.expect(target).to.have.all.keys('id', 'text', 'author','eventId', 'updated','created', 'isEdited');\r",
                   "});"
                 ],
                 "type": "text/javascript"
@@ -963,8 +964,8 @@
                   "    pm.response.to.be.json;\r",
                   "});\r",
                   "const target = pm.response.json()[0];\r",
-                  "pm.test(\"Комментарии должны содержать поля: 'id', 'text', 'authorId','eventId', 'created', 'isEdited'\", function () {\r",
-                  "    pm.expect(target).to.have.all.keys('id', 'text', 'authorId','eventId', 'created', 'isEdited');\r",
+                  "pm.test(\"Комментарии должны содержать поля: 'id', 'text', 'author','eventId','updated', 'created', 'isEdited'\", function () {\r",
+                  "    pm.expect(target).to.have.all.keys('id', 'text', 'author','eventId', 'updated','created', 'isEdited');\r",
                   "});"
                 ],
                 "type": "text/javascript"
@@ -975,7 +976,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/comments/:eventId",
+              "raw": "http://localhost:8080/comments/events/:eventId",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -983,11 +984,52 @@
               "port": "8080",
               "path": [
                 "comments",
+                "events",
                 ":eventId"
               ],
               "variable": [
                 {
                   "key": "eventId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Получение комментария",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const target = pm.response.json();\r",
+                  "pm.test(\"Комментарии должны содержать поля: 'id', 'text', 'author','eventId','updated', 'created', 'isEdited'\", function () {\r",
+                  "    pm.expect(target).to.have.all.keys('id', 'text', 'author','eventId', 'updated','created', 'isEdited');\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/comments/:commentId",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "comments",
+                ":commentId"
+              ],
+              "variable": [
+                {
+                  "key": "commentId",
                   "value": "1"
                 }
               ]
